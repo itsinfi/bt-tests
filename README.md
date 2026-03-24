@@ -15,7 +15,7 @@ TODO:
 ## Quellen
 
 <p style="text-indent: -2em; margin-left: 2em;">
-Angermann, S. (2025a). <i>hausarbeit-web-dev-tests</i> [GitHub-Repository]. GitHub. <a>https://github.com/itsinfi/hausarbeit-web-dev-tests</a>
+Angermann, S. (2025a). <i>hausarbeit-web-dev-tests</i> [GitHub-Repository]. GitHub. <a href="https://github.com/itsinfi/hausarbeit-web-dev-tests">https://github.com/itsinfi/hausarbeit-web-dev-tests</a>
 </p>
 <p style="text-indent: -2em; margin-left: 2em;">
 Angermann, S. (2025b). <i>Benchmarking von Jakarta EE und Node.js: Performance aktueller Backend-Technologien
