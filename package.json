@@ -1,0 +1,25 @@
+{
+    "name": "bt-tests",
+    "module": "index.ts",
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix && prettier --write ."
+    },
+    "type": "module",
+    "private": true,
+    "devDependencies": {
+        "@types/bun": "latest"
+    },
+    "peerDependencies": {
+        "typescript": "^5"
+    },
+    "dependencies": {
+        "@eslint/js": "^10.0.1",
+        "@types/k6": "^1.6.0",
+        "esbuild": "^0.27.4",
+        "eslint": "^10.1.0",
+        "globals": "^17.4.0",
+        "prettier": "^3.8.1",
+        "typescript-eslint": "^8.57.2"
+    }
+}

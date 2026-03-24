@@ -1,9 +1,9 @@
 import { check, group } from 'k6';
 import http from 'k6/http';
 import { Trend, Counter, Rate, Gauge } from 'k6/metrics';
-import buildTestScenarios from './utils/build-test-scenarios.js';
-import loadBodyDefinitions from './utils/load-body-definitions.js';
-import { saveSummary } from './utils/save-summary.js';
+import buildTestScenarios from './shared/build-test-scenarios.js';
+import loadBodyDefinitions from './shared/load-body-definitions.js';
+import { saveSummary } from './shared/save-summary.js';
 
 const scenarios = buildTestScenarios();
 

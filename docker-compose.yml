@@ -3,18 +3,8 @@ services:
     image: grafana/k6
     container_name: k6
     volumes:
-      - ./scripts:/scripts
+      - ./src:/src
       - ./results:/results
     env_file:
       - .env
-    environment:
-      - APP_PROTOCOL=${APP_PROTOCOL}
-      - APP_HOST=${APP_HOST}
-      - APP_PORTS=${APP_PORTS}
-      - APP_ROUTE_PREFIX=${APP_ROUTE_PREFIX}
-      - TEST_ROUTES=${TEST_ROUTES}
-      - TEST_ITERATIONS=${TEST_ITERATIONS}
-      - TEST_VUS=${TEST_VUS}
-      - TEST_GRACEFUL_STOP=${TEST_GRACEFUL_STOP}
-      - PAUSE_DURATION=${PAUSE_DURATION}
-    command: ["run", "--summary-export=/results/summary.json", "/scripts/test.js"]
+    command: ["run", "--summary-export=/results/summary.json", "/src/fb1.api-test.ts"]
