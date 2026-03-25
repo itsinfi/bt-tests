@@ -5,12 +5,17 @@ import type { Options } from 'k6/options';
 import type { Result, ResultData } from './shared/types';
 
 // CONFIG --------------------------------------------------------
+if (!__ENV.API_URL || !__ENV.API_AUTH || !__ENV.API_SP_ID || !__ENV.TEST_ITERATIONS || !__ENV.TEST_VUS) {
+    console.error('falsche eingabe, kopiere .env.example als .env und gib alle werte an');
+    process.exit(1);
+}
+
 const API_URL: string = __ENV.API_URL!;
 const API_AUTH: string = __ENV.API_AUTH!;
 const API_SP_ID: string = __ENV.API_SP_ID!;
 
-const TEST_ITERATIONS: number = Number.parseInt(__ENV.TEST_ITERATIONS!);
-const TEST_VUS: number = Number.parseInt(__ENV.TEST_VUS!);
+const TEST_ITERATIONS: number = parseInt(__ENV.TEST_ITERATIONS!, 10);
+const TEST_VUS: number = parseInt(__ENV.TEST_VUS!, 10);
 const TEST_MAX_DURATION: string = __ENV.TEST_MAX_DURATION || '2h';
 const TEST_GRACEFUL_STOP: string = __ENV.TEST_GRACEFUL_STOP || '0s';
 
@@ -27,10 +32,24 @@ export const options: Options = {
 }
 
 // METRICS --------------------------------------------------------
+/**
+ * Anzahl beantworteter Fragen (später genutzt für Berechnung des Throughputs)
+ */
 const anwered = new Counter('answered');
+
+/**
+ * Anzahl unbeantworteter Fragen
+ */
 const unanswered = new Counter('unanswered');
 
+/**
+ * Latenz
+ */
 const latency = new Trend('latency', true);
+
+/**
+ * Antwortzeit
+ */
 const duration = new Trend('duration', true);
 
 // TEST --------------------------------------------------------
@@ -56,14 +75,14 @@ export default function () {
     duration.add(res.timings.duration);
 }
 
-// SUMMARY --------------------------------------------------------
+// BERICHT --------------------------------------------------------
 export function handleSummary({ metrics, state }: ResultData): Record<string, string> {
     const answered = metrics['answered'] !== undefined ? metrics['answered'].values.count : 0;
     const unanswered = metrics['unanswered'] !== undefined ? metrics['unanswered'].values.count : 0;
     const latency = metrics['latency']!.values;
     const duration = metrics['duration']!.values;
-    const time = state.testRunDurationMs;
-    const throughput = answered / time / 1000;
+    const time = state.testRunDurationMs / 1000; // in s
+    const throughput = answered / time; // in req/s
 
     const summary: Result = {
         time,
@@ -86,11 +105,8 @@ export function handleSummary({ metrics, state }: ResultData): Record<string, st
         },
     };
 
-    const now = new Date()
-        .toISOString()
-        .split('.')[0]
-        .toString()
-        .replace(/:/g, '-');
+    const now = (new Date().toISOString().split('.')[0] ?? '')
+        .toString().replace(/:/g, '-');
     
     const filename = `/results/fb1-${now}.json`;
     const data = JSON.stringify(summary, null, 4);

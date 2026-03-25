@@ -1,3 +1,4 @@
+// kleiner Test-Server
 Bun.serve({
     port: 5000,
     hostname: '0.0.0.0',

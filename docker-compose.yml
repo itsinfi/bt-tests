@@ -8,3 +8,12 @@ services:
     env_file:
       - .env
     command: ["run", "--summary-export=/results/summary.json", "/src/fb1.api-test.ts"]
+  
+  monitor-ram:
+    image: oven/bun:alpine
+    container_name: monitor-ram
+    working_dir: /app
+    volumes:
+      - ./src/monitor-docker-ram.ts:/app/monitor-docker-ram.ts
+      - ./results:/results
+    command: ["bun", "monitor-docker-ram.ts", API_CONTAINER_NAME, TEST_RAM_INT_MS]

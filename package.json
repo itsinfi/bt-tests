@@ -1,6 +1,6 @@
 {
     "name": "bt-tests",
-    "module": "index.ts",
+    "module": "./src/monitor-ram.ts",
     "scripts": {
         "lint": "eslint .",
         "lint:fix": "eslint . --fix && prettier --write ."
