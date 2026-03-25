@@ -11,10 +11,19 @@ const API_SP_ID: string = __ENV.API_SP_ID!;
 
 const TEST_ITERATIONS: number = Number.parseInt(__ENV.TEST_ITERATIONS!);
 const TEST_VUS: number = Number.parseInt(__ENV.TEST_VUS!);
+const TEST_MAX_DURATION: string = __ENV.TEST_MAX_DURATION || '2h';
+const TEST_GRACEFUL_STOP: string = __ENV.TEST_GRACEFUL_STOP || '0s';
 
 export const options: Options = {
-    iterations: TEST_ITERATIONS,
-    vus: TEST_VUS,
+    scenarios: {
+        fb1: {
+            executor: 'shared-iterations',
+            iterations: TEST_ITERATIONS,
+            vus: TEST_VUS,
+            maxDuration: TEST_MAX_DURATION,
+            gracefulStop: TEST_GRACEFUL_STOP,
+        }
+    }
 }
 
 // METRICS --------------------------------------------------------
