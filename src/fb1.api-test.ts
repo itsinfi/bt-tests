@@ -4,7 +4,11 @@ import { Counter, Trend } from 'k6/metrics';
 import type { Options } from 'k6/options';
 import type { Result, ResultData } from './shared/types';
 
+// CONFIG --------------------------------------------------------
 const API_URL: string = __ENV.API_URL!;
+const API_AUTH: string = __ENV.API_AUTH!;
+const API_SP_ID: string = __ENV.API_SP_ID!;
+
 const TEST_ITERATIONS: number = Number.parseInt(__ENV.TEST_ITERATIONS!);
 const TEST_VUS: number = Number.parseInt(__ENV.TEST_VUS!);
 
@@ -13,15 +17,20 @@ export const options: Options = {
     vus: TEST_VUS,
 }
 
+// METRICS --------------------------------------------------------
 const anwered = new Counter('answered');
 const unanswered = new Counter('unanswered');
 
 const latency = new Trend('latency', true);
 const duration = new Trend('duration', true);
 
+// TEST --------------------------------------------------------
 export default function () {
-    const res = http.get(API_URL, {
-        headers: { 'Content-Type': 'application/json' },
+    const res = http.get(`${API_URL}/seating-plans/${API_SP_ID}/blocks`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${API_AUTH}`,
+        },
     });
 
     const isOK = check(res, {
@@ -38,6 +47,7 @@ export default function () {
     duration.add(res.timings.duration);
 }
 
+// SUMMARY --------------------------------------------------------
 export function handleSummary({ metrics, state }: ResultData): Record<string, string> {
     const answered = metrics['answered'] !== undefined ? metrics['answered'].values.count : 0;
     const unanswered = metrics['unanswered'] !== undefined ? metrics['unanswered'].values.count : 0;
@@ -73,7 +83,7 @@ export function handleSummary({ metrics, state }: ResultData): Record<string, st
         .toString()
         .replace(/:/g, '-');
     
-    const filename = `/results/${now}.json`;
+    const filename = `/results/fb1-${now}.json`;
     const data = JSON.stringify(summary, null, 4);
 
     return { [filename]: data };
