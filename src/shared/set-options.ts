@@ -1,5 +1,5 @@
 import type { Options } from "k6/options";
-import type { AppConfig, FbType } from "./types.ts";
+import { FbType, type AppConfig } from "./types.ts";
 
 export function setOptions(appConfig: AppConfig): Options {
     return {

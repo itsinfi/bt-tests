@@ -5,3 +5,5 @@ plots/
 node_modules/
 notes.txt
 order-ids.json
+src/data/order-ids.ts
+src/data/stripe-data.ts

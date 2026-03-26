@@ -30,7 +30,7 @@ export enum RequestMethod {
 }
 
 export interface Metrics {
-    anwered: Counter, // Anzahl beantworteter Fragen
+    answered: Counter, // Anzahl beantworteter Fragen
     unanswered: Counter, // Anzahl unbeantworteter Fragen
     latency: Trend, // Latenz
     duration: Trend, // Antwortzeit

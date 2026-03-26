@@ -8,7 +8,7 @@ export function saveMetrics(res: RefinedResponse<ResponseType>, metrics: Metrics
     });
 
     if (isOK) {
-        metrics.anwered.add(1);
+        metrics.answered.add(1);
     } else {
         metrics.unanswered.add(1);
     }

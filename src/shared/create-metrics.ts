@@ -5,7 +5,7 @@ export function createMetrics(): Metrics {
     /**
      * Anzahl beantworteter Fragen (später genutzt für Berechnung des Throughputs)
      */
-    const anwered = new Counter('answered');
+    const answered = new Counter('answered');
 
     /**
      * Anzahl unbeantworteter Fragen
@@ -22,5 +22,5 @@ export function createMetrics(): Metrics {
      */
     const duration = new Trend('duration', true);
 
-    return { anwered, unanswered, latency, duration };
+    return { answered, unanswered, latency, duration };
 }
