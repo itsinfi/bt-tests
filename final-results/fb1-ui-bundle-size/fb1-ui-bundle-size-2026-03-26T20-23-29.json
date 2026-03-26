@@ -1,0 +1,7 @@
+{
+    "bun": 24384,
+    "bun-minify": 17056,
+    "vite": 16228,
+    "vite-minify-off": 22324,
+    "vite-terser": 16212
+}
