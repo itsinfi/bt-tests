@@ -7,7 +7,7 @@ const stripeClient = new Stripe(STRIPE_SK_MOCK, stripeConfig);
 
 const data = [];
 
-let limit = 50;
+let limit = 1000;
 let i = 0;
 
 for (const orderId of ORDER_IDS) {
@@ -27,4 +27,4 @@ for (const orderId of ORDER_IDS) {
     i++;
 }
 
-await Bun.write('src/data/stripe-data.ts', `export const STRIPE_DATA: { header: string, payload: string }[] = [${data.map((e: { header: string, payload: string }) => `{header: '${e.header}', payload: '${e.payload}'}`).toString()}];`);
+await Bun.write('src/data/stripe-data.ts',`export const STRIPE_DATA: { header: string, payload: string }[] = [${data.map((e: { header: string, payload: string }) => `{header: '${e.header}', payload: '${e.payload}'}`).toString()}];`);

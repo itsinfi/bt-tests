@@ -31,11 +31,14 @@ const stripeData = new SharedArray('fb2-stripe-data', () => STRIPE_DATA);
 
 export default function () {
     const index = scenario.iterationInTest;
-    const stripDataObject = stripeData[index];
+    const stripeDataObject = stripeData[index] as unknown as { header: string, payload: string };
 
-    if (!stripDataObject || !stripDataObject.header || !stripDataObject.payload) return;
+    if (!stripeDataObject || !stripeDataObject?.header || !stripeDataObject?.payload) {
+        console.warn('no more unique stripe ids, will quit test...');
+        return;
+    }
 
-    const { header, payload } = stripDataObject;
+    const { header, payload } = stripeDataObject;
 
     const headers = {
         ...baseEndpointConfig.headers,
