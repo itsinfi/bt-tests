@@ -9,10 +9,9 @@ export function saveMetrics(res: RefinedResponse<ResponseType>, metrics: Metrics
 
     if (isOK) {
         metrics.answered.add(1);
+        metrics.latency.add(res.timings.waiting);
+        metrics.duration.add(res.timings.duration);
     } else {
         metrics.unanswered.add(1);
     }
-
-    metrics.latency.add(res.timings.waiting);
-    metrics.duration.add(res.timings.duration);
 }
