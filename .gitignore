@@ -1,4 +1,5 @@
 .env
+results/
 plots/
 .vscode/
 node_modules/
