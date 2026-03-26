@@ -1,0 +1,14 @@
+{
+    "navigation": {
+        "firstContentfulPaint": 2.3,
+        "largestContent": 4.7,
+        "totalBlockingTime": 0,
+        "cumulativeLayoutShift": 0,
+        "speedIndex": 2.3
+    },
+    "timespan": {
+        "totalBlockingTime": 19100,
+        "cumulativeLayoutShift": 0.002,
+        "interactionToNextPaint": 8010
+    }
+}
