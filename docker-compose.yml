@@ -1,13 +1,23 @@
 services:
-  k6:
+  k6-fb1:
     image: grafana/k6
-    container_name: k6
+    container_name: k6-fb1
     volumes:
       - ./src:/src
       - ./results:/results
     env_file:
       - .env
-    command: ["run", "--summary-export=/results/summary.json", "/src/fb1.api-test.ts"]
+    command: ["run", "--summary-export=/results/summary-fb1.json", "/src/fb1.api-test.ts"]
+
+  k6-fb2:
+    image: grafana/k6
+    container_name: k6-fb2
+    volumes:
+      - ./src:/src
+      - ./results:/results
+    env_file:
+      - .env
+    command: ["run", "--summary-export=/results/summary-fb2.json", "/src/fb2.api-test.ts"]
   
   monitor-ram:
     image: oven/bun:alpine
@@ -17,3 +27,26 @@ services:
       - ./src/monitor-docker-ram.ts:/app/monitor-docker-ram.ts
       - ./results:/results
     command: ["bun", "monitor-docker-ram.ts", API_CONTAINER_NAME, TEST_RAM_INT_MS]
+
+  smtp:
+    container_name: test-smtp
+    image: mailhog/mailhog
+    ports:
+      - 27021:1025
+      - 27022:8025
+    extra_hosts:
+      -  "host.docker.internal:host-gateway"
+
+  s3:
+    container_name: test-s3
+    image: localstack/localstack:4.2.0
+    ports:
+      - 27023:4566
+    extra_hosts:
+      -  "host.docker.internal:host-gateway"
+    environment:
+      - DEFAULT_REGION=eu-central-1
+      - DATA_DIR=/tmp/localstack/data
+      - SERVICES=s3
+      - DISABLE_CORS_CHECKS=1
+      - DISABLE_CUSTOM_CORS_APIGATEWAY=1
