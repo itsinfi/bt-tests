@@ -78,3 +78,16 @@ export interface ResultData {
     };
     state: { testRunDurationMs: number }
 }
+
+export interface LighthouseStats {
+    mean: number,
+    median: number,
+    stddev: number,
+}
+
+export interface LighthouseMetrics {
+    fcp: LighthouseStats,
+    si: LighthouseStats,
+    lcp: LighthouseStats,
+    tbt: LighthouseStats,
+}
