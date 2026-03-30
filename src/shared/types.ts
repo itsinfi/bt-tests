@@ -91,3 +91,20 @@ export interface LighthouseMetrics {
     lcp: LighthouseStats,
     tbt: LighthouseStats,
 }
+
+export interface LoginResponse {
+    user: {
+        id: string,
+        email: string,
+        role: string,
+        firstname: string,
+        lastname: string,
+        organizerInfo: object,
+        subscription: object,
+    },
+    token: string,
+}
+
+export interface ErrorResponse {
+    message: string,
+}
