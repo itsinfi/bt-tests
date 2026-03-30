@@ -97,4 +97,10 @@ const output = {
     },
 };
 
-await Bun.write('results/lighthouse-results.json', JSON.stringify(output, null, 2));
+const now = (new Date().toISOString().split('.')[0] ?? '')
+    .toString().replace(/:/g, '-');
+
+const filename = `/results/lighthouse-${now}.json`;
+const data = JSON.stringify(output, null, 4);
+
+await Bun.write(filename, data);
