@@ -4,13 +4,14 @@ Dieses Repository enthält alle Testskripte zur Messung der API- (1) bzw. UI-Per
 
 Das Repository basiert auf dem Repository für API-Benchmarks [(Angermann, 2025a)](https://github.com/itsinfi/bt-tests#Angermann_2025a), das zu einer vorigen Hausarbeit erstellt wurde [(Angermann, 2025b)](https://github.com/itsinfi/bt-tests#Angermann_2025b).
 
-## 1 API-Performance
+## Skripte
 
-TODO:
-
-## 2 UI-Performance
-
-TODO:
+-   src/fb1.api-test.ts: k6-Testskript für FB1
+-   src/fb2.api-test.ts: k6-Testskript für FB2
+-   src/convert_ids.ts: Vorbereitung für FB2 zum Konvertieren der Bestellungs-IDs zu einem JavaScript-Format
+-   src/generate-stripe-date.ts: Generieren der Stripe-Header und des -Payloads
+-   src/lighthouse.ts: Durchführen des Google Lighthouse Tests
+-   src/monitor-docker-ram.ts: Monitoring des RAM-Verbrauchs eines Containers während der Tests
 
 ## Quellen
 
